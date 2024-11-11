@@ -23,7 +23,7 @@ export default function SearchTitles({ onSearch }: SearchTitlesProps) {
         <input
             type="text"
             placeholder="Search-Titles..."
-            className="placeholder-gray-900 placeholder:text-base rounded p-1 text-gray-900 text-base font-bold"
+            className="placeholder-gray-900 placeholder:text-base placeholder:font-light rounded p-1 text-gray-900 text-base font-bold"
             value={inputValue}
             onChange={handleInputChange}
             onKeyDown={handleKeyDown}

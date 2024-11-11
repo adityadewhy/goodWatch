@@ -10,7 +10,7 @@ export default function AvatarPopover() {
 
 	return (
 		<div className="relative">
-			<button onClick={togglePopover}>username</button>
+			<button onClick={togglePopover}><strong>username</strong></button>
 			<div
 				className={`bg-gray-800 p-2 text-base shadow-sm rounded absolute ${
 					isVisible ? "block" : "hidden"
