@@ -23,7 +23,7 @@ interface omdbProps {
 
 export default function Omdb({searchTerm}: omdbProps) {
 	const [movie, setMovie] = useState<Movie | null>(null);
-    const apiKey = process.env.NEXT_PUBLIC_OMDB_API_KEY
+    const omdbApiKey = process.env.NEXT_PUBLIC_OMDB_API_KEY
 
 	useEffect(() => {
 		if (!searchTerm) {
@@ -32,10 +32,10 @@ export default function Omdb({searchTerm}: omdbProps) {
 
 		const isID = searchTerm.startsWith("tt");
 		const fetchUrl = isID
-			? `https://www.omdbapi.com/?apikey=${apiKey}&i=${encodeURIComponent(
+			? `https://www.omdbapi.com/?apikey=${omdbApiKeypiKey}&i=${encodeURIComponent(
 					searchTerm
 			  )}&plot=full`
-			: `https://www.omdbapi.com/?apikey=${apiKey}&t=${encodeURIComponent(
+			: `https://www.omdbapi.com/?apikey=${omdbApiKey}&t=${encodeURIComponent(
 					searchTerm
 			  )}&plot=full`;
 
