@@ -1,15 +1,48 @@
 "use client";
-import React, { useState } from "react";
-import ReCAPTCHA from "react-google-recaptcha"
+import React, {useState} from "react";
+import ReCAPTCHA from "react-google-recaptcha";
+import bcrypt from "bcryptjs"
 
 export default function Signup() {
 	const [captchaVerified, setCaptchaVerified] = useState(false);
-  const recaptchaSiteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY
+	const recaptchaSiteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "";
 
 	// Handle reCAPTCHA verification
 	function onCaptchaChange(value: string | null) {
 		setCaptchaVerified(!!value); // If value exists, CAPTCHA is verified
 	}
+
+	const [username, setUsername] = useState("");
+	const [password, setPassword] = useState("");
+
+	const handleUsernameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		setUsername(event.target.value);
+	};
+	const handlePasswordChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+		setPassword(event.target.value);
+	};
+
+	// on signup button click  will will User.create(username, password)
+  const handleSignupClick = async () => {
+    if(!captchaVerified){
+      alert("complete the captcha before clicking sign-up button")
+      return
+    }
+
+    try{
+      const saltRounds= 10
+      const hashedPassword = await bcrypt.hash(password,saltRounds)
+
+      console.log(username, "hashPswrd: ", hashedPassword)
+      
+
+    } catch(error){
+      console.error("error signing up: ", error)
+      alert("an error occured when signing up :( ")
+
+    }
+
+  }
 
 	return (
 		<div className="flex flex-row min-h-screen justify-center items-center">
@@ -30,6 +63,8 @@ export default function Signup() {
 					<input
 						type="text"
 						placeholder="aditya29"
+						value={username}
+            onChange={handleUsernameChange}
 						className="placeholder-gray-900 placeholder:text-base placeholder:font-light rounded p-1 text-gray-900 text-base font-bold"
 					/>
 				</div>
@@ -38,26 +73,27 @@ export default function Signup() {
 					<p className="font-semibold">Enter password</p>
 					<input
 						type="password"
+						value={password}
 						placeholder="not-encrypted"
+            onChange={handlePasswordChange}
 						className="placeholder-gray-900 placeholder:text-base placeholder:font-light rounded p-1 text-gray-900 text-base font-bold"
 					/>
 				</div>
 
 				<div className="m-5 flex flex-col justify-center">
 					<p className="font-semibold">Verify CAPTCHA</p>
-					<ReCAPTCHA
-						sitekey={recaptchaSiteKey} // Replace with your actual site key
-						onChange={onCaptchaChange}
-					/>Verify CAPTCHA
-
+					<ReCAPTCHA sitekey={recaptchaSiteKey} onChange={onCaptchaChange} />
 
 					{!captchaVerified && (
-						<p className="text-red-500 text-sm mt-2">Please complete the CAPTCHA</p>
+						<p className="text-red-500 text-sm mt-2">
+							Please complete the CAPTCHA
+						</p>
 					)}
 				</div>
-				
+
 				<div className="m-5 flex justify-center">
 					<button
+            onClick={handleSignupClick}
 						disabled={!captchaVerified}
 						className={`px-4 py-2 rounded ${
 							captchaVerified
@@ -72,4 +108,3 @@ export default function Signup() {
 		</div>
 	);
 }
-
