@@ -1,11 +1,14 @@
 "use client";
 import React, {useState} from "react";
 import ReCAPTCHA from "react-google-recaptcha";
-import bcrypt from "bcryptjs"
+import axios from "axios";
+import {useRouter} from "next/navigation";
 
 export default function Signup() {
 	const [captchaVerified, setCaptchaVerified] = useState(false);
 	const recaptchaSiteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || "";
+
+	const router = useRouter();
 
 	// Handle reCAPTCHA verification
 	function onCaptchaChange(value: string | null) {
@@ -23,26 +26,30 @@ export default function Signup() {
 	};
 
 	// on signup button click  will will User.create(username, password)
-  const handleSignupClick = async () => {
-    if(!captchaVerified){
-      alert("complete the captcha before clicking sign-up button")
-      return
-    }
+	const handleSignupClick = async () => {
+		if (!captchaVerified) {
+			alert("complete the captcha before clicking sign-up button");
+			return;
+		}
 
-    try{
-      const saltRounds= 10
-      const hashedPassword = await bcrypt.hash(password,saltRounds)
+		try {
+			const response = await axios.post("api/signup", {username, password});
+			alert(response.data.message);
+			localStorage.setItem("userId",response.data.userId)
 
-      console.log(username, "hashPswrd: ", hashedPassword)
-      
-
-    } catch(error){
-      console.error("error signing up: ", error)
-      alert("an error occured when signing up :( ")
-
-    }
-
-  }
+			router.push("/");
+		} catch (error: any) {
+			if (error.response) {
+				alert(
+					error.response.data.message || "An error occurred while signing up."
+				);
+			} else {
+				// If there is no response (e.g., network issues)
+				console.error("Error during signup:", error);
+				alert("Failed to sign up. Please try again later.");
+			}
+		}
+	};
 
 	return (
 		<div className="flex flex-row min-h-screen justify-center items-center">
@@ -64,7 +71,7 @@ export default function Signup() {
 						type="text"
 						placeholder="aditya29"
 						value={username}
-            onChange={handleUsernameChange}
+						onChange={handleUsernameChange}
 						className="placeholder-gray-900 placeholder:text-base placeholder:font-light rounded p-1 text-gray-900 text-base font-bold"
 					/>
 				</div>
@@ -75,7 +82,7 @@ export default function Signup() {
 						type="password"
 						value={password}
 						placeholder="not-encrypted"
-            onChange={handlePasswordChange}
+						onChange={handlePasswordChange}
 						className="placeholder-gray-900 placeholder:text-base placeholder:font-light rounded p-1 text-gray-900 text-base font-bold"
 					/>
 				</div>
@@ -93,7 +100,7 @@ export default function Signup() {
 
 				<div className="m-5 flex justify-center">
 					<button
-            onClick={handleSignupClick}
+						onClick={handleSignupClick}
 						disabled={!captchaVerified}
 						className={`px-4 py-2 rounded ${
 							captchaVerified
