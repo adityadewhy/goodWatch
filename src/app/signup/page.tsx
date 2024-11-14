@@ -3,6 +3,7 @@ import React, {useState} from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import axios from "axios";
 import {useRouter} from "next/navigation";
+import Link from "next/link";
 
 export default function Signup() {
 	const [captchaVerified, setCaptchaVerified] = useState(false);
@@ -81,7 +82,7 @@ export default function Signup() {
 					<input
 						type="password"
 						value={password}
-						placeholder="not-encrypted"
+						placeholder="hashed"
 						onChange={handlePasswordChange}
 						className="placeholder-gray-900 placeholder:text-base placeholder:font-light rounded p-1 text-gray-900 text-base font-bold"
 					/>
@@ -110,6 +111,12 @@ export default function Signup() {
 					>
 						Sign Up
 					</button>
+				</div>
+
+				<div>
+					Already a user? <Link href="/signin">
+							<button className="mt-2 font-semibold"> Signin </button>
+						</Link> instead
 				</div>
 			</div>
 		</div>
