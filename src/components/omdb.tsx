@@ -19,24 +19,28 @@ interface Movie {
 
 interface omdbProps {
 	searchTerm: string;
+	defaultMovie?: string;
 }
 
-export default function Omdb({searchTerm}: omdbProps) {
+export default function Omdb({searchTerm, defaultMovie="tt1375666"}: omdbProps) {
 	const [movie, setMovie] = useState<Movie | null>(null);
     const omdbApiKey = process.env.NEXT_PUBLIC_OMDB_API_KEY
 
 	useEffect(() => {
-		if (!searchTerm) {
+		const termToUse = searchTerm || defaultMovie
+
+
+		if (!termToUse) {
 			return;
 		}
 
-		const isID = searchTerm.startsWith("tt");
+		const isID = termToUse.startsWith("tt");
 		const fetchUrl = isID
-			? `https://www.omdbapi.com/?apikey=${omdbApiKeypiKey}&i=${encodeURIComponent(
-					searchTerm
+			? `https://www.omdbapi.com/?apikey=${omdbApiKey}&i=${encodeURIComponent(
+					termToUse
 			  )}&plot=full`
 			: `https://www.omdbapi.com/?apikey=${omdbApiKey}&t=${encodeURIComponent(
-					searchTerm
+					termToUse
 			  )}&plot=full`;
 
         
@@ -46,7 +50,7 @@ export default function Omdb({searchTerm}: omdbProps) {
 			.then((response) => response.json())
 			.then((data) => setMovie(data))
 			.catch((error) => console.error("Error fetching movie data:", error));
-	}, [searchTerm]);
+	}, [searchTerm, defaultMovie]);
 
 	if (!movie) {
 		return <div className="text-center text-gray-700">Loading...</div>;
