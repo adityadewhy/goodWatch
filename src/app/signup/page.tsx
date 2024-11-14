@@ -39,15 +39,14 @@ export default function Signup() {
 			localStorage.setItem("userId",response.data.userId)
 
 			router.push("/");
-		} catch (error: any) {
-			if (error.response) {
+		} catch (error: unknown) {
+			if (axios.isAxiosError(error)) {
 				alert(
-					error.response.data.message || "An error occurred while signing up."
+					error.response?.data.message || "an error occured while signing up"
 				);
 			} else {
-				// If there is no response (e.g., network issues)
-				console.error("Error during signup:", error);
-				alert("Failed to sign up. Please try again later.");
+				console.error("error during signup", error);
+				alert("failed to signup. please try again later");
 			}
 		}
 	};

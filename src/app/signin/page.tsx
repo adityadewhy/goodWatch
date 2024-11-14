@@ -26,10 +26,10 @@ export default function Signin() {
 			localStorage.setItem("userId", response.data.userId);
 
 			router.push("/");
-		} catch (error: any) {
-			if (error.response) {
+		} catch (error: unknown) {
+			if (axios.isAxiosError(error)) {
 				alert(
-					error.response.data.message || "an error occured while signing in"
+					error.response?.data.message || "an error occured while signing in"
 				);
 			} else {
 				console.error("error during signin", error);
