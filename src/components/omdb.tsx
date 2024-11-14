@@ -1,6 +1,7 @@
 "use client";
 
 import React, {useEffect, useState} from "react";
+import Image from "next/image";
 
 interface Movie {
 	Title: string;
@@ -22,13 +23,15 @@ interface omdbProps {
 	defaultMovie?: string;
 }
 
-export default function Omdb({searchTerm, defaultMovie="tt1375666"}: omdbProps) {
+export default function Omdb({
+	searchTerm,
+	defaultMovie = "tt1375666",
+}: omdbProps) {
 	const [movie, setMovie] = useState<Movie | null>(null);
-    const omdbApiKey = process.env.NEXT_PUBLIC_OMDB_API_KEY
+	const omdbApiKey = process.env.NEXT_PUBLIC_OMDB_API_KEY;
 
 	useEffect(() => {
-		const termToUse = searchTerm || defaultMovie
-
+		const termToUse = searchTerm || defaultMovie;
 
 		if (!termToUse) {
 			return;
@@ -42,8 +45,6 @@ export default function Omdb({searchTerm, defaultMovie="tt1375666"}: omdbProps) 
 			: `https://www.omdbapi.com/?apikey=${omdbApiKey}&t=${encodeURIComponent(
 					termToUse
 			  )}&plot=full`;
-
-        
 
 		// Replace '[yourkey]' with your actual API key
 		fetch(fetchUrl)
@@ -59,7 +60,7 @@ export default function Omdb({searchTerm, defaultMovie="tt1375666"}: omdbProps) 
 	return (
 		<div className="m-2 p-5 flex bg-gray-900">
 			<div className="poster m-5 p-5 ">
-				<img
+				<Image
 					src={movie.Poster}
 					alt={`${movie.Title} Poster`}
 					className="rounded border-2"

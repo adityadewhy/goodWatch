@@ -4,6 +4,7 @@ import ReCAPTCHA from "react-google-recaptcha";
 import axios from "axios";
 import {useRouter} from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Signup() {
 	const [captchaVerified, setCaptchaVerified] = useState(false);
@@ -36,7 +37,7 @@ export default function Signup() {
 		try {
 			const response = await axios.post("api/signup", {username, password});
 			alert(response.data.message);
-			localStorage.setItem("userId",response.data.userId)
+			localStorage.setItem("userId", response.data.userId);
 
 			router.push("/");
 		} catch (error: unknown) {
@@ -56,7 +57,7 @@ export default function Signup() {
 			<div className="bg-gray-900 border-2 p-2 px-6 rounded">
 				<div className="m-2 p-2">
 					<div className="flex items-center justify-center">
-						<img
+						<Image
 							src="https://flowbite.com/docs/images/logo.svg"
 							className="h-8"
 							alt="Goodwatch Logo"
@@ -113,9 +114,11 @@ export default function Signup() {
 				</div>
 
 				<div>
-					Already a user? <Link href="/signin">
-							<button className="mt-2 font-semibold"> Signin </button>
-						</Link> instead
+					Already a user?{" "}
+					<Link href="/signin">
+						<button className="mt-2 font-semibold"> Signin </button>
+					</Link>{" "}
+					instead
 				</div>
 			</div>
 		</div>

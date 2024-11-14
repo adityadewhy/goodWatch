@@ -10,7 +10,7 @@ export default function ParentSearchTitles({
 }: ParentSearchTitlesProps) {
 	return (
 		<div>
-			<Omdb searchTerm={searchTerm} />
+			<Omdb searchTerm={searchTerm} defaultMovie="tt1375666"/>
 		</div>
 	);
 }

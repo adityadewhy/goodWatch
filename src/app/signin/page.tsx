@@ -4,6 +4,7 @@ import React, {useState} from "react";
 import axios from "axios";
 import {useRouter} from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Signin() {
 	const router = useRouter();
@@ -43,7 +44,7 @@ export default function Signin() {
 			<div className="bg-gray-900 border-2 p-2 px-6 rounded">
 				<div className="m-2 p-2">
 					<div className="flex items-center justify-center">
-						<img
+						<Image
 							src="https://flowbite.com/docs/images/logo.svg"
 							className="h-8"
 							alt="Goodwatch Logo"

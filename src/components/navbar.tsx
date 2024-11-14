@@ -3,6 +3,7 @@ import SearchTitles from "./searchTitles";
 import SearchUsers from "./searchUsers";
 import AvatarPopover from "./avatarPopover";
 import Link from "next/link";
+import Image from "next/image";
 
 interface NavbarProps {
 	onSearch: (term: string) => void;
@@ -13,7 +14,7 @@ export default function Navbar({onSearch}: NavbarProps) {
 		<div className="m-2 bg-gray-900 border-b-2 py-4 flex items-center justify-around text-2xl text-white">
 			
 			<Link className="flex items-center" href="/">
-				<img
+				<Image
 					src="https://flowbite.com/docs/images/logo.svg"
 					className="h-8"
 					alt="Goodwatch Logo"
