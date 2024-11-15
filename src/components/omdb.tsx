@@ -64,6 +64,9 @@ export default function Omdb({
 					src={movie.Poster}
 					alt={`${movie.Title} Poster`}
 					className="rounded border-2"
+					layout="intrinsic" // Ensures the image preserves its original aspect ratio
+					width={330} // You can specify either width or height (Next.js calculates the other)
+					height={0} // Height can be omitted; Next.js will auto-calculate it
 				/>
 			</div>
 			<div className="details m-5 p-5">
