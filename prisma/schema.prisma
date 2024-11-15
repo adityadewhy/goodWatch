@@ -8,9 +8,29 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  username  String   @unique
+  id        Int        @id @default(autoincrement())
+  username  String     @unique
   password  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+  // Add the opposite relation field to `Watchlist`
+  watchlists Watchlist[]  // One User can have many Watchlist entries
+}
+
+model playing_with_neon {
+  id    Int    @id @default(autoincrement())
+  name  String
+  value Float? @db.Real
+}
+
+model Watchlist {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  movieId   String   // Store IMDb ID or other unique identifier for the movie
+  title     String
+  posterUrl String
+  addedAt   DateTime @default(now())
+
+  @@unique([userId, movieId]) // Ensure a movie is only added once per user
 }
