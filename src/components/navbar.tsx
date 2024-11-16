@@ -24,16 +24,20 @@ export default function Navbar({onSearch}: NavbarProps) {
 			</Link>
 
 			<div>
-				<strong>Watchlist</strong>
+				<Link href="/watchlist">
+					<strong>Watchlist</strong>{" "}
+				</Link>
 			</div>
 
 			<div>
 				<strong>Ratings</strong>
 			</div>
-
-			<div>
-				<SearchTitles onSearch={onSearch} />
-			</div>
+			
+			{onSearch && (
+				<div>
+					<SearchTitles onSearch={onSearch} />
+				</div>
+			)}
 
 			<div>
 				<SearchUsers />

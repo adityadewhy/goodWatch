@@ -2,6 +2,7 @@
 
 import React, {useEffect, useState} from "react";
 import Image from "next/image";
+import AddToWatchlistButton from "./addToWatchlistButton";
 
 interface Movie {
 	Title: string;
@@ -16,6 +17,7 @@ interface Movie {
 	Plot: string;
 	Poster: string;
 	imdbRating: string;
+	imdbID: string;
 }
 
 interface omdbProps {
@@ -29,6 +31,12 @@ export default function Omdb({
 }: omdbProps) {
 	const [movie, setMovie] = useState<Movie | null>(null);
 	const omdbApiKey = process.env.NEXT_PUBLIC_OMDB_API_KEY;
+
+	const [userId, setUserId] = useState<number | null>(null);
+	useEffect(() => {
+		const storedUserId = localStorage.getItem("userId");
+		setUserId(storedUserId ? parseInt(storedUserId) : null);
+	}, []);
 
 	useEffect(() => {
 		const termToUse = searchTerm || defaultMovie;
@@ -69,6 +77,7 @@ export default function Omdb({
 					height={0} // Height can be omitted; Next.js will auto-calculate it
 				/>
 			</div>
+
 			<div className="details m-5 p-5">
 				<h1 className="text-2xl font-bold ">
 					{movie.Title}{" "}
@@ -116,6 +125,22 @@ export default function Omdb({
 				<p className="text-gray-200 font-semibold mt-4">
 					<strong>IMDb Rating:</strong> {movie.imdbRating}/10
 				</p>
+			</div>
+
+			<div className="custom-side">
+				{/* Ensure the AddToWatchlistButton is only rendered if userId is not null */}
+				{userId !== null ? (
+					<AddToWatchlistButton
+						userId={userId}
+						movieId={movie.imdbID}
+						title={movie.Title}
+						posterUrl={movie.Poster}
+					/>
+				) : (
+					<p className="text-gray-200 mt-4">
+						Please sign in to add this movie to your watchlist.
+					</p>
+				)}
 			</div>
 		</div>
 	);
