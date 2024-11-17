@@ -6,7 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 
 interface NavbarProps {
-	onSearch: (term: string) => void;
+	onSearch?: (term: string) => void;
 }
 
 export default function Navbar({onSearch}: NavbarProps) {
