@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import {useState, useEffect} from "react";
 import axios from "axios";
@@ -27,7 +27,16 @@ const AddToWatchlistButton: React.FC<AddToWatchlistButtonProps> = ({
 
 				// Check if the movie ID exists in the user's watchlist
 				setIsInWatchlist(
-					watchlist.some((item: any) => item.movieId === movieId)
+					watchlist.some((item: unknown) => {
+						if (
+							typeof item === "object" &&
+							item !== null &&
+							"movieId" in item
+						) {
+							return (item as {movieId: string}).movieId === movieId;
+						}
+						return false;
+					})
 				);
 			} catch (error) {
 				console.error("Failed to fetch watchlist", error);

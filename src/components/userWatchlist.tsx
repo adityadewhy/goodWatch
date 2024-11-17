@@ -1,6 +1,7 @@
 "use client";
 
 import React, {useEffect, useState} from "react";
+import Image from "next/image";
 
 interface WatchlistItem {
 	id: string;
@@ -38,7 +39,7 @@ export default function UserWatchlist() {
 			<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
 				{watchlist.map((item) => (
 					<div key={item.id} className="p-2 border rounded shadow bg-gray-800">
-						<img src={item.posterUrl} alt={item.title} className="rounded" />
+						<Image src={item.posterUrl} alt={item.title} className="rounded" width={200} height={0}/>
 						<p className="text-white mt-2">{item.title}</p>
 					</div>
 				))}
