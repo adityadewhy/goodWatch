@@ -47,7 +47,7 @@ export default function Signin() {
 						<Image
 							src="/flowbiteLogo.svg"
 							className="h-8 w-auto"
-							layout="intrinsic" // Ensures the image preserves its original aspect ratio
+							// layout="intrinsic" // Ensures the image preserves its original aspect ratio
 							width={25} // You can specify either width or height (Next.js calculates the other)
 							height={0} // Height can be omitted; Next.js will auto-calculate it
 							alt="Goodwatch Logo"
