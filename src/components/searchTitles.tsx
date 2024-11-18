@@ -28,6 +28,8 @@ export default function SearchTitles({ onSearch }: SearchTitlesProps) {
             value={inputValue}
             onChange={handleInputChange}
             onKeyDown={handleKeyDown}
+            enterKeyHint="search"
+            autoComplete="off"
         />
     );
 }
