@@ -60,7 +60,7 @@ export default function Omdb({
 			.then((response) => response.json())
 			.then((data) => setMovie(data))
 			.catch((error) => console.error("Error fetching movie data:", error));
-	}, [searchTerm, defaultMovie]);
+	}, [omdbApiKey,searchTerm, defaultMovie]);
 
 	if (!movie) {
 		return <div className="text-center text-gray-700">Loading...</div>;

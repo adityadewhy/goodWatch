@@ -107,7 +107,7 @@ export default function UserRatings() {
 
     if (ratings.length === 0) {
         return (
-            <div className="text-center text-gray-700">You haven't rated any movies yet.</div>
+            <div className="text-center text-gray-700">You haven&apos;t rated any movies yet.</div>
         );
     }
 
