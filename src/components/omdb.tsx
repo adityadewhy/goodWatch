@@ -4,7 +4,6 @@ import React, {useEffect, useState} from "react";
 import Image from "next/image";
 import AddToWatchlistButton from "./addToWatchlistButton";
 import Rating from "./rating";
-import {PRERENDER_REVALIDATE_ONLY_GENERATED_HEADER} from "next/dist/lib/constants";
 
 interface Movie {
 	Title: string;

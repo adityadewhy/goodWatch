@@ -67,7 +67,7 @@ export default function UserRatings() {
                 throw new Error("Failed to update rating");
             }
 
-            const updatedRating = await response.json();
+            // const updatedRating = await response.json();
             setRatings(ratings.map(r => 
                 r.movieId === movieId ? { ...r, userRating: editedRating } : r
             ));
