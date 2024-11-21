@@ -82,9 +82,6 @@ export default function UserWatchlist() {
 							height={300} // Maintain aspect ratio
 						/>
 						<p className="text-white mt-2">{item.title}</p>
-
-						{/* movieid is not required remove next p tag */}
-						<p>{item.movieId}</p>
 						<button
 							onClick={() => handleRemoveFromWatchlist(item.movieId)}
 							className="mt-2 px-4 py-2 bg-red-500 text-white rounded"

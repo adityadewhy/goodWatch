@@ -3,6 +3,8 @@
 import React, {useEffect, useState} from "react";
 import Image from "next/image";
 import AddToWatchlistButton from "./addToWatchlistButton";
+import Rating from "./rating";
+import {PRERENDER_REVALIDATE_ONLY_GENERATED_HEADER} from "next/dist/lib/constants";
 
 interface Movie {
 	Title: string;
@@ -72,7 +74,7 @@ export default function Omdb({
 					src={movie.Poster}
 					alt={`${movie.Title} Poster`}
 					className="rounded border-2"
-					layout="intrinsic" // Ensures the image preserves its original aspect ratio
+					// layout="intrinsic" // Ensures the image preserves its original aspect ratio
 					width={330} // You can specify either width or height (Next.js calculates the other)
 					height={0} // Height can be omitted; Next.js will auto-calculate it
 				/>
@@ -141,6 +143,23 @@ export default function Omdb({
 						Please sign in to add this movie to your watchlist.
 					</p>
 				)}
+
+				<div>
+					{userId !== null ? (
+						<div className="mt-4">
+							<Rating
+								userId={userId}
+								movieId={movie.imdbID}
+								title={movie.Title}
+								posterUrl={movie.Poster}
+							/>
+						</div>
+					) : (
+						<p className="text-gray-200 mt-4">
+							Please sign in to rate this movie.
+						</p>
+					)}
+				</div>
 			</div>
 		</div>
 	);

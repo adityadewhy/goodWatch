@@ -8,13 +8,13 @@ datasource db {
 }
 
 model User {
-  id        Int        @id @default(autoincrement())
-  username  String     @unique
-  password  String
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  // Add the opposite relation field to `Watchlist`
-  watchlists Watchlist[]  // One User can have many Watchlist entries
+  id          Int         @id @default(autoincrement())
+  username    String      @unique
+  password    String
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  watchlists  Watchlist[] // One User can have many Watchlist entries
+  userRatings Ratings[] //one user can have many rating entries
 }
 
 model playing_with_neon {
@@ -27,10 +27,24 @@ model Watchlist {
   id        Int      @id @default(autoincrement())
   userId    Int
   user      User     @relation(fields: [userId], references: [id])
-  movieId   String   // Store IMDb ID or other unique identifier for the movie
+  movieId   String // Store IMDb ID or other unique identifier for the movie
   title     String
   posterUrl String
   addedAt   DateTime @default(now())
 
   @@unique([userId, movieId]) // Ensure a movie is only added once per user
+}
+
+model Ratings {
+  id         Int      @id @default(autoincrement())
+  userId     Int
+  user       User     @relation(fields: [userId], references: [id])
+  movieId    String // Store IMDb ID or other unique identifier for the movie
+  title      String
+  posterUrl  String
+  addedAt    DateTime @default(now())
+  userRating Int? // Make this field optional (nullable)
+  // Ensure a movie is only added once per user
+
+  @@unique([userId, movieId], name: "userId_movieId")
 }
