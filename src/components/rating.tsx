@@ -42,7 +42,6 @@ export default function Rating({
 				const data = await response.json();
 				setUserMovieRating(data?.userRating ?? null);
 			} catch (error) {
-				console.log("Rating fetch status:", error);
 				setUserMovieRating(null);
 			} finally {
 				setIsLoading(false);
@@ -57,14 +56,6 @@ export default function Rating({
 		setError(null);
 
 		try {
-			console.log(
-				"from rating.tsx sending to api/ratings",
-				userId,
-				movieId,
-				title,
-				posterUrl,
-				userMovieRating
-			);
 			const response = await fetch("/api/ratings", {
 				method: "POST",
 				headers: {
@@ -139,18 +130,16 @@ export default function Rating({
 		                         border focus:outline-none focus:ring-2
 		                          focus:ring-blue-500"
 					/>
-
-					
 				</div>
-                <button
-						onClick={handleRatingSubmit}
-						disabled={
-							!userMovieRating || userMovieRating < 1 || userMovieRating > 10
-						}
-						className="px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
-					>
-						{"Update Rating"}
-					</button>
+				<button
+					onClick={handleRatingSubmit}
+					disabled={
+						!userMovieRating || userMovieRating < 1 || userMovieRating > 10
+					}
+					className="px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
+				>
+					{"Update Rating"}
+				</button>
 			</div>
 		</div>
 	);
