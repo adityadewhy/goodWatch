@@ -2,7 +2,7 @@
 import React, {useState, useEffect} from "react";
 import Link from "next/link";
 import {useRouter} from "next/navigation";
-import axios from "axios"; // Import axios if it's not already imported
+import axios from "axios";
 
 export default function AvatarPopover() {
 	const [isVisible, setIsVisible] = useState(false);
@@ -10,13 +10,10 @@ export default function AvatarPopover() {
 
 	const router = useRouter();
 
-	// Simulate fetching username from localStorage or API (update with actual fetch)
 	useEffect(() => {
 		const userId = localStorage.getItem("userId");
 
 		if (userId) {
-			// Make an API call to fetch username
-			// You can use axios here or fetch, as shown in previous examples
 			axios
 				.get(`/api/getUser`, {
 					headers: {
@@ -36,11 +33,6 @@ export default function AvatarPopover() {
 		setIsVisible(!isVisible);
 	}
 
-	// Inline LoginUsername component definition
-	const LoginUsername = ({username}: {username: string}) => {
-		return <strong>{username}</strong>;
-	};
-
 	function signOut() {
 		localStorage.removeItem("userId");
 		router.push("/signin");
@@ -52,10 +44,9 @@ export default function AvatarPopover() {
 				onClick={togglePopover}
 				className="flex items-center w-[120px] space-x-2"
 			>
-				{/* Use the LoginUsername component */}
-				<LoginUsername username={username || "Anon"} />
-				{/* <span className="text-xs">⬇️</span> */}
+				<strong>{username || "Anon"}</strong>
 
+				{/* Always render the SVG, remove conditional rendering */}
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
 					height="16"
@@ -76,7 +67,6 @@ export default function AvatarPopover() {
 					<li>Profile</li>
 					<li>Settings</li>
 
-					{/* If the user is logged in, allow signout */}
 					{username ? (
 						<button className="mt-2" onClick={signOut}>
 							Sign out
@@ -91,7 +81,3 @@ export default function AvatarPopover() {
 		</div>
 	);
 }
-
-/*  use this as arrow instead of the currently using emoji
-<?xml version="1.0" ?><svg height="48" viewBox="0 0 48 48" width="48" xmlns="http://www.w3.org/2000/svg"><path d="M14 20l10 10 10-10z"/><path d="M0 0h48v48h-48z" fill="none"/></svg>
-*/
