@@ -53,9 +53,6 @@ export default function UserWatchlist() {
 			if (!response.ok) {
 				throw new Error("Failed to remove movie from watchlist");
 			}
-
-			const result = await response.json();
-			console.log(result.message);
 			setWatchlist(watchlist.filter((item) => item.movieId !== movieId));
 		} catch (error) {
 			console.error("Error removing movie from watchlist:", error);
