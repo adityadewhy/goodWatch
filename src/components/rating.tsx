@@ -1,4 +1,3 @@
-// rating.tsx
 "use client";
 
 import React, {useState, useEffect} from "react";
@@ -42,6 +41,7 @@ export default function Rating({
 				const data = await response.json();
 				setUserMovieRating(data?.userRating ?? null);
 			} catch (error) {
+				console.error("Fetching rating error:", error); // Logs the error for debugging
 				setUserMovieRating(null);
 			} finally {
 				setIsLoading(false);
@@ -61,7 +61,6 @@ export default function Rating({
 				headers: {
 					"Content-Type": "application/json",
 				},
-
 				body: JSON.stringify({
 					userId,
 					movieId,
@@ -78,8 +77,8 @@ export default function Rating({
 			const data = await response.json();
 			setUserMovieRating(data.userRating);
 		} catch (error) {
+			console.error("Rating submission error:", error); // Logs the error for debugging
 			setError("Failed to save rating. Please try again.");
-			console.error("Rating submission error:", error);
 		} finally {
 			setIsLoading(false);
 		}
@@ -127,8 +126,8 @@ export default function Rating({
 						}}
 						autoComplete="off"
 						className="w-full rounded px-2 py-1 text-gray-900
-		                         border focus:outline-none focus:ring-2
-		                          focus:ring-blue-500"
+							 border focus:outline-none focus:ring-2
+							  focus:ring-blue-500"
 					/>
 				</div>
 				<button
@@ -138,7 +137,7 @@ export default function Rating({
 					}
 					className="px-4 py-2 rounded bg-blue-500 text-white hover:bg-blue-600 disabled:bg-gray-400 disabled:cursor-not-allowed"
 				>
-					{"Update Rating"}
+					Update Rating
 				</button>
 			</div>
 		</div>

@@ -35,11 +35,15 @@ export default function SearchUsers() {
 				if (response.data) {
 					router.push(`/stalk?username=${encodeURIComponent(inputValue)}`);
 				}
-			} catch (error: any) {
-				if (error.response && error.response.status === 400) {
-					alert("Username does not exist in the database.");
+			} catch (error: unknown) {
+				if (axios.isAxiosError(error)) {
+					if (error.response && error.response.status === 400) {
+						alert("Username does not exist in the database.");
+					} else {
+						console.error("Error searching user:", error.message);
+					}
 				} else {
-					console.error("Error searching user:", error);
+					console.error("Unexpected error:", error);
 				}
 			}
 		}
