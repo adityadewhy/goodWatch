@@ -18,6 +18,7 @@ const geistMono = localFont({
 export const metadata: Metadata = {
   title: "GoodWatch",
   description: "Rate titles and share interests with friends",
+  viewport: 'width=1024, initial-scale=1'
 };
 
 export default function RootLayout({

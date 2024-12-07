@@ -9,7 +9,8 @@ export default function SearchUsers() {
 	const router = useRouter();
 
 	const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		setInputValue(event.target.value);
+		const cleanedValue = event.target.value.replace(/[^a-z!@#$%^&*(),.?":{}|<>-]/g, "");
+		setInputValue(cleanedValue);
 	};
 
 	const handleKeyDown = async (
