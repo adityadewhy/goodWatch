@@ -9,7 +9,7 @@ export default function SearchUsers() {
 	const router = useRouter();
 
 	const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		const cleanedValue = event.target.value.replace(/[^a-z!@#$%^&*(),.?":{}|<>-]/g, "");
+		const cleanedValue = event.target.value.replace(/[^a-z0-9!@#$%^&*(),.?":{}|<>-]/g, "");
 		setInputValue(cleanedValue);
 	};
 
