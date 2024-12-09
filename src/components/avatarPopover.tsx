@@ -42,9 +42,9 @@ export default function AvatarPopover() {
 		<div className="relative">
 			<button
 				onClick={togglePopover}
-				className="flex items-center w-[120px] space-x-2"
+				className="flex items-center"
 			>
-				<strong>{username || "Anon"}</strong>
+				<strong>{username || "Signin"}</strong>
 
 				{/* Always render the SVG, remove conditional rendering */}
 				<svg
