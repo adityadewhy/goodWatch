@@ -1,6 +1,7 @@
 "use client";
 
 import Navbar from "@/components/navbar";
+import MobileNavbar from "@/components/mobileNavbar";
 import Footer from "@/components/footer";
 import {useSearchParams} from "next/navigation";
 import React, {Suspense, useState} from "react";
@@ -138,7 +139,12 @@ function StalkContent() {
 export default function Stalk() {
 	return (
 		<div>
-			<Navbar />
+			<div className="hidden lg:block">
+				<Navbar />
+			</div>
+			<div className="block lg:hidden">
+				<MobileNavbar />
+			</div>
 			<Suspense fallback={<p>Loading...</p>}>
 				<StalkContent />
 			</Suspense>

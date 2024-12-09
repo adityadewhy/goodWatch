@@ -2,6 +2,7 @@
 
 import React, {useEffect, useState} from "react";
 import Image from "next/image";
+import {FiTrash2} from "react-icons/fi";
 
 interface WatchlistItem {
 	id: string;
@@ -67,10 +68,9 @@ export default function UserWatchlist() {
 
 	return (
 		<div className="m-2 p-5 flex bg-gray-900">
-			<h2 className="text-2xl font-bold text-gray-900">Your Watchlist</h2>
 			<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 mt-4">
 				{watchlist.map((item) => (
-					<div key={item.id} className="p-2 border rounded shadow bg-gray-800">
+					<div key={item.id} className="p-2 border rounded shadow bg-gray-800 flex flex-col items-center">
 						<Image
 							src={item.posterUrl}
 							alt={item.title}
@@ -83,7 +83,7 @@ export default function UserWatchlist() {
 							onClick={() => handleRemoveFromWatchlist(item.movieId)}
 							className="mt-2 px-4 py-2 bg-red-500 text-white rounded"
 						>
-							Remove from Watchlist
+							<FiTrash2 />
 						</button>
 					</div>
 				))}
