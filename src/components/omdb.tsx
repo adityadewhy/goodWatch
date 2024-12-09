@@ -28,7 +28,7 @@ interface omdbProps {
 
 export default function Omdb({
 	searchTerm,
-	defaultMovie = "tt1375666",
+	defaultMovie = "interstellar",
 }: omdbProps) {
 	const [movie, setMovie] = useState<Movie | null>(null);
 	const omdbApiKey = process.env.NEXT_PUBLIC_OMDB_API_KEY;
@@ -117,7 +117,7 @@ export default function Omdb({
 					<br />
 
 					{/* 3. Plot */}
-					<p className="text-gray-200 max-w-screen-sm">
+					<p className="text-gray-200">
 						<strong>Plot:</strong> {movie.Plot}
 					</p>
 
