@@ -33,15 +33,16 @@ export default function MobileNavbar({onSearch}: NavbarProps) {
 				</button>
 
 				{/* Logo */}
-				<Link className="flex items-center" href="/">
-					<Image
-						src="/flowbiteLogo.svg"
-						width={25}
-						height={0}
-						alt="Goodwatch Logo"
-					/>
-					<span className="text-2xl px-2 font-extrabold">GoodWatch</span>
-				</Link>
+				<div className="flex items-center justify-center flex-1">
+					<Link className="flex items-center" href="/">
+						<Image
+							src="/flowbiteLogo.svg"
+							width={25}
+							height={0}
+							alt="Goodwatch Logo"
+						/>
+					</Link>
+				</div>
 
 				<div className="pr-4">
 					<AvatarPopover />
